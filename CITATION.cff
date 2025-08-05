@@ -1,0 +1,67 @@
+cff-version: 1.2.0
+title: >-
+  An Affordable Autonomous 2U-Greenhouse for Plant Research
+  in Low-Gravity Environments
+message: >-
+  To cite this poster, please use following
+  metadata from this file.
+type: poster
+authors:
+  - given-names: Dominik
+    family-names: Woiwode
+    affiliation: >-
+      Institute of Information Processing, Leibniz
+      University Hannover
+  - given-names: Jakob
+    family-names: Marten
+    affiliation: >-
+      Institute of Microelectronic Systems, Leibniz
+      University Hannover
+  - given-names: Justin
+    family-names: Sondheim
+    affiliation: Leibniz University Hannover
+  - given-names: Dörthe
+    family-names: Behrens
+    affiliation: Leibniz University Hannover
+  - given-names: Nils
+    family-names: Wörz
+    affiliation: Leibniz University Hannover
+  - given-names: Natalija
+    family-names: Hohnjec
+    affiliation: >-
+      Institute of Plant Genetics, Leibniz University
+      Hannover
+  - given-names: Helge
+    family-names: Küster
+    affiliation: >-
+      Institute of Plant Genetics, Leibniz University
+      Hannover
+  - given-names: Holger
+    family-names: Blume
+    affiliation: >-
+      Institute of Microelectronic Systems, Leibniz
+      University Hannover
+url: 'https://gluecksklee.space'
+abstract: >-
+  Observing and monitoring plants in low gravity is a
+  challenging and cost-intensiv task.
+
+  Due to the increasing interest in biotech experiments
+  conducted in space, there is a demand for affordable and
+  easy-to-manage containers for biological experiments.
+
+  We propose a 2U (200x100x100mm³) low-cost and autonomous
+  greenhouse consisting of commercial of the shelf (COTS)
+  parts.
+
+  As part of the student project “Glücksklee”, it was
+  successfully launched during the SPX-27 mission and stayed
+  aboard the International Space Station (ISS) in the
+  TangoLab facility for 30 days.
+
+  During the mission, the greenhouse provided an environment
+  for the growth of 13 Medicago Truncatula plants.
+keywords:
+  - International Space Station
+  - Medicago Truncatula
+  - Überflieger2
