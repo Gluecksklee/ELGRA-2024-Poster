@@ -1,0 +1,205 @@
+%==============================================================================
+% Beamer style for LUH posters
+% Tim Oberschulte, 2022
+% based on the sharelatex style which based on the 'cpbgposter' beamer theme
+%==============================================================================
+
+\ProvidesPackage{beamerthemeLUHposter}
+
+\RequirePackage{tikz}
+
+\usefonttheme{professionalfonts}
+\usefonttheme{serif}
+
+\usepackage{ragged2e}
+
+% LUH Corporate Design Length definitons
+\newlength{\headerheight} %corporate guidelines says 120mm but I guess it means 100mm header + 20mm initial parskip
+\newlength{\footerheight} %missing in corporate guidelines; extrapolated
+\newlength{\papermarginright} %corporate guidelines
+\newlength{\papermarginleft} %corporate guidelines
+\newlength{\verticalspacing} %corporate guidelines
+\newlength{\horizontalspacing} %corporate guidelines
+\newlength{\luhlogowidth} %corporate guidelines
+\newlength{\luhlogoheight} %calculated from its aspect ratio and \luhlogowidth
+\newlength{\luhlogomargintop} %corporate guidelines
+\newlength{\luhlogomarginright} %corporate guidelines
+\headerheight=100mm
+\footerheight=22mm
+\papermarginright=30mm
+\papermarginleft=30mm
+\verticalspacing=20mm
+\horizontalspacing=20mm
+\luhlogowidth=170mm
+\luhlogoheight=49mm
+\luhlogomargintop=22mm
+\luhlogomarginright=22mm
+
+% Text flow settings
+\setlength{\intextsep}{\verticalspacing} %Space after intext float (e.g. a figure)
+\setlength{\textfloatsep}{\verticalspacing} %Space after top float or before bottom float
+\setlength{\columnsep}{\horizontalspacing}
+\setlength{\abovecaptionskip}{15pt plus 3pt minus 2pt}
+
+% Define alignment of the text
+\geometry{
+  hmargin=\papermarginleft,
+  rmargin=\papermarginright
+}
+
+% captions
+\usepackage[justification=justified,listformat=simple,format=plain,labelformat=simple]{caption}
+
+% Package/Theme options
+\DeclareOption{print}{\def\print@Mode@Active}
+\ProcessOptions\relax
+
+%==============================================================================
+% define basic colors 
+%==============================================================================
+%==============================================================================
+
+% Select colors for printing if in printing mode
+\ifdefined\print@Mode@Active
+  \definecolor{colorLUHblue}{cmyk}{1,.7,0,0}
+  \definecolor{colorLUHgreen}{cmyk}{.3,0,.94,0}
+  \colorlet{colorLUHtitleblue}{colorLUHblue}
+  \colorlet{colorLUHbackground}{colorLUHblue!5}
+\else
+  \definecolor{colorLUHblue}{RGB}{0,80,155}
+  \definecolor{colorLUHgreen}{RGB}{200,211,23}
+  \definecolor{colorLUHtitleblue}{RGB}{0,90,162} % From Poster example
+  \definecolor{colorLUHbackground}{RGB}{238,239,247} % From Poster Example
+\fi
+
+
+%==============================================================================
+%==============================================================================
+
+%set the basic colors palette
+\setbeamercolor{palette primary}   {fg=black,bg=white}
+\setbeamercolor{palette secondary} {fg=black,bg=white}
+\setbeamercolor{palette tertiary}  {fg=black,bg=white}
+\setbeamercolor{palette quaternary}{fg=black,bg=white}
+\setbeamercolor{titlelike}         {fg=black}
+\setbeamercolor{block title}       {fg=black}
+\setbeamercolor{block body}        {fg=black}
+\setbeamercolor{normal text}       {fg=black}
+\setbeamercolor{alerted text}      {fg=colorLUHgreen}
+
+%set the fonts
+\setbeamerfont{section title}{size*={40}{50}}
+\setbeamerfont{block title}{size*={40}{50}}
+
+%set some beamer theme options
+\setbeamertemplate{items}[circle]
+\setbeamertemplate{blocks}[width=0.0]
+\beamertemplatenavigationsymbolsempty
+
+%set bibliography style
+\setbeamertemplate{bibliography item}[text]
+\setbeamercolor{bibliography item}{fg=black}
+\setbeamercolor{bibliography entry author}{fg=black}
+
+%set bullet style
+\defbeamertemplate*{itemize item}{LUH}{\tikz[baseline=-.3ex] \fill rectangle (.7ex, .7ex);}
+\defbeamertemplate*{itemize subitem}{LUH}{\tikz[baseline=-.35ex] \fill rectangle (.6ex, .6ex);}
+\defbeamertemplate*{itemize subsubitem}{LUH}{\tikz[baseline=-.4ex] \fill rectangle (.5ex, .5ex);}
+
+\setbeamercolor*{itemize item}{fg=colorLUHgreen}
+\setbeamercolor*{itemize subitem}{parent=itemize item}
+\setbeamercolor*{itemize subsubitem}{parent=itemize subitem}
+
+%% Reduce this spacing if required
+\addtobeamertemplate{block end}{}{\vspace{\verticalspacing}}
+
+
+%==============================================================================
+% some interfaces to configure the poster
+%==============================================================================
+
+% Specify the institute logo as TeX commands (e.g. \includegraphics).
+\newcommand{\institutelogo}[1]{
+  \setbeamertemplate{institute logo}{#1}%
+}
+
+
+%==============================================================================
+% build the poster headline
+%==============================================================================
+\setbeamertemplate{headline}{
+  \begin{tikzpicture}
+    \useasboundingbox (0,\paperheight-\headerheight) rectangle(\paperwidth,\paperheight);
+
+    %Include LUH logo and possibly institute logo
+    \node[anchor=north west,inner sep=0pt] at (\papermarginleft,\the\paperheight-\luhlogomargintop)
+      {\usebeamertemplate***{institute logo}};
+    \ifdefined\print@Mode@Active
+      \node[anchor=north east, inner sep=0pt] at (\the\paperwidth-\luhlogomarginright,\the\paperheight-\luhlogomargintop)
+        {\includegraphics[width=\luhlogowidth]{img/luh_logo_cmyk.pdf}};
+    \else
+      \node[anchor=north east, inner sep=0pt] at (\the\paperwidth-\luhlogomarginright,\the\paperheight-\luhlogomargintop)
+        {\includegraphics[width=\luhlogowidth]{img/luh_logo_rgb_0_80_155.pdf}};
+      \node[inner sep=0pt,red,align=center,font=\huge,anchor=north] at (.5\paperwidth,\the\paperheight)
+        {RGB preview mode -- Do not use for printing\\\large Add option \texttt{print} to the usetheme command};
+    \fi
+  \end{tikzpicture}
+}
+
+
+%==============================================================================
+% build the poster foot
+%==============================================================================
+\setbeamertemplate{footline}{
+  \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle(\paperwidth,\footerheight);
+
+    \node[inner sep=0pt] at (.5\paperwidth,.5\footerheight)
+      {\textbf{\small{\insertshorttitle}}};
+  \end{tikzpicture}
+}
+
+
+%==============================================================================
+% Build the Poster Background
+%==============================================================================
+\setbeamertemplate{background canvas}{
+  \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+
+    \draw[draw=colorLUHbackground,fill=colorLUHbackground] (0,\paperheight-\headerheight) rectangle (\paperwidth-\luhlogomarginright,\footerheight);
+
+  \end{tikzpicture}
+}
+
+
+%==============================================================================
+% Section and subsection re-definitions
+%==============================================================================
+
+%% Probably don't use sections/subsections but beamer blocks
+
+\renewcommand{\section}[1]{
+\vspace{\verticalspacing}
+%
+     \begin{flushleft}
+      {{\usebeamerfont{section title} #1}}
+     \end{flushleft}
+%
+  {\parskip0pt\par}
+  \justifying
+}
+
+%%%
+\renewcommand{\subsection}[1]{
+\vspace{\verticalspacing}
+%
+     \begin{flushleft}
+      {{\Large #1}}
+     \end{flushleft}
+%
+  {\parskip0pt\par}
+  \justifying
+}
+
+%==============================================================================
